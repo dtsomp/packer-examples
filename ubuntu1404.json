@@ -1,0 +1,27 @@
+{
+   "builders": [{
+    "type": "virtualbox-iso",
+    "guest_os_type": "Ubuntu_64",
+    "iso_checksum": "dd54dc8cfc2a655053d19813c2f9aa9f",
+    "iso_checksum_type": "md5",
+    "iso_url": "https://sollentuna.tsomp.net/pub/ubuntu-14.04.5-server-amd64.iso",
+    "ssh_username": "vagrant",
+    "ssh_password": "vagrant",
+    "ssh_wait_timeout": "10000s",
+    "http_directory": "http",
+    "http_port_min": "9001",
+    "http_port_max": "9009",
+    "shutdown_command": "echo 'debian' | sudo -S shutdown -h now",
+    "boot_wait": "4s",
+    "boot_command": [
+        "<esc><esc><enter><wait>",
+        "/install/vmlinuz noapic ",
+        "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ubuntu-preseed.cfg ",
+        "debian-installer=en_US auto locale=en_US kbd-chooser/method=us <wait>",
+        "hostname={{ .Name }} <wait>",
+        "fb=false debconf/frontend=noninteractive <wait>",
+        "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA keyboard-configuration/variant=USA console-setup/ask_detect=false <wait>",
+        "initrd=/install/initrd.gz -- <enter><wait>"
+    ]
+  }]
+} 
