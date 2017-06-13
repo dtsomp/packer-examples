@@ -22,6 +22,31 @@
         "fb=false debconf/frontend=noninteractive <wait>",
         "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA keyboard-configuration/variant=USA console-setup/ask_detect=false <wait>",
         "initrd=/install/initrd.gz -- <enter><wait>"
-    ]
-  }]
-} 
+    ],
+     "vboxmanage": [
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--memory",
+          "2048"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--cpus",
+          "4"
+        ]
+      ],
+      "virtualbox_version_file": ".vbox_version"
+  }],
+  "post-processors": [
+    "vagrant"
+    ],
+  "provisioners": [
+    {
+        "scripts": [
+            "scripts/setup-ubuntu.sh"
+            ],
+        "type": "shell"
+    }]
+}   
